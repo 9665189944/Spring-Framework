@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="m1" class="SpringIOC.Master"></bean>
+    <bean id="machine1" class="SpringIOC.Mobile"></bean>
+    <bean id="machine2" class="SpringIOC.Tv"></bean>
+
+    <!--Configuration of dependency object-->
+     <bean id="battery1" class="Mobile.Lithium"/>
+    <bean id="battery2" class="Mobile.NickelCadmium"/>
+    <!--Configuration of main  entity-->
+        <bean id="mobile1" class="Mobile.Smartphone">
+            <constructor-arg ref="battery2"></constructor-arg>
+        </bean>
+    <bean id="mobile2" class="Mobile.futurephone">
+        <constructor-arg ref="battery1"></constructor-arg>
+    </bean>
+
+<!-- Product Shop dependency getter injection-->
+    <bean id="product1" class="shopdependency.GroceryItem"/>
+    <bean id="product2" class="shopdependency.ElectronicItem"/>
+
+    <bean id="shop1" class="shopdependency.GroceryShop">
+
+        <property name="item" ref="product1"></property>
+    </bean>
+
+    <bean id="shop2" class="shopdependency.ElectronicShop">
+        <property name="item" ref="product2" ></property>
+    </bean>
+
+
+
+
+    <bean id="project1" class="companydependency.FinaceProject"></bean>
+    <bean id="project2" class="companydependency.EcommerceProject"></bean>
+
+    <bean id="employee1" class="companydependency.ContractBased"></bean>
+    <bean id="employee2" class="companydependency.Permanant"></bean>
+
+
+    <bean id="company1" class="companydependency.ServiceBased">
+        <constructor-arg ref="project1"/>
+        <property name="employee" ref="employee1"/>
+    </bean>
+
+    <bean id="company2" class="companydependency.ProductBased">
+        <constructor-arg ref="project2"/>
+        <property name="employee" ref="employee2"/>
+    </bean>
+
+            <context:component-scan base-package="iocannotation"></context:component-scan>
+
+     <context:component-scan base-package="diannotation"></context:component-scan>
+
+<context:component-scan base-package="beanlifecycle"></context:component-scan>
+</beans>
